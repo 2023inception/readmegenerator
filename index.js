@@ -1,6 +1,7 @@
 const inquirer = require('inquirer')
-const question = 
-    [
+const fs = require('fs');
+
+const question = [
         {
             type: "input",
             name: "firstName",
@@ -21,4 +22,19 @@ const question =
 inquirer.prompt(question)   
 .then(function(answer){
     console.log(answer);
+
+    const content = `#Answers
+    ## First name
+   - ${answer.firstName}
+    ## Last name
+   - ${answer.lastName}
+    ## Language
+   - ${answer.color}
+    `
+    
+    fs.writeFile('assets/README.md', content, (error) => {
+        if(err) {
+           console.log('There is something wrong');
+        }
+       })
 })
