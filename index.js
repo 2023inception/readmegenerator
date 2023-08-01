@@ -12,7 +12,45 @@ const questions = [
     name: 'email',
     message: 'What is your email address?',
   },
-  // Add other questions...
+  {
+    type: "input",
+    name: "title",
+    message: "What is the title of your project?"
+},
+{
+    type: "input",
+    name: "description",
+    message: "Enter a description?"
+},
+{
+    type: "input",
+    name: "installation",
+    message: "Enter installation instructions:"
+},
+{
+    type: "input",
+    name: "usage",
+    message: "Enter usage information:",
+},
+{
+
+    type: "input",
+    name: "contributing",
+    message: "Enter contribution guidelines:"
+},
+{
+
+    type: "input",
+    name: "tests",
+    message: "Enter test instructions"
+},
+{
+    type: 'list',
+    name: 'license',
+    message: 'Choose a license for your application:',
+    choices: ['ISC', 'Apache 2.0', 'GNU GPLv3'],
+},
+
 ];
 
 inquirer.prompt(questions)
