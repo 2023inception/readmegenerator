@@ -1,62 +1,55 @@
-const inquirer = require('inquirer')
+const inquirer = require('inquirer');
 const fs = require('fs');
 
-const question = [
-        {
-            type: "input",
-            name: "title",
-            message: "What is the title of your project?"
-        },
-        {
-            type: "input",
-            name: "description",
-            message: "Enter a description?"
-        },
-        {
-            type: "input",
-            name: "installation",
-            message: "Enter installation instructions:"
-        },
-        {
-            type: "input",
-            name: "usage",
-            message: "Enter usage information:",
-        },
-        {
+const questions = [
+  {
+    type: 'input',
+    name: 'github',
+    message: 'What is your GitHub username?',
+  },
+  {
+    type: 'input',
+    name: 'email',
+    message: 'What is your email address?',
+  },
+  // Add other questions...
+];
 
-            type: "input",
-            name: "contributing",
-            message: "Enter contribution guidelines:"
-        },
-        {
-
-            type: "input",
-            name: "tests",
-            message: "Enter test instructions"
-        }
-    ];
-inquirer.prompt(question)   
-.then(function(answer){
+inquirer.prompt(questions)
+  .then(answer => {
     console.log(answer);
 
-    const content = `#Answers
-    ## title
-   - ${answer.title}
-    ## description 
-   - ${answer.description}
-    ## installation
-   - ${answer.installation}
-   ## usage
-   - ${answer.usage}
-    ## contributing 
-   - ${answer.contributing}
-    ## tests
-   - ${answer.tests}
-    `
-    
-    fs.writeFile('assets/README.md', content, (error) => {
-        if(err) {
-           console.log('There is something wrong');
-        }
-       })
-})
+    const content = `# ${answer.title} - ${answer.github}
+    ![License Badge](https://img.shields.io/badge/License-${encodeURIComponent(
+      answer.license
+    )}-blue.svg)
+
+    ## Description
+    ${answer.description}
+
+    ## Installation
+    ${answer.installation}
+
+    ## Usage
+    ${answer.usage}
+
+    ## Contributing
+    ${answer.contributing}
+
+    ## Tests
+    ${answer.tests}
+
+    ## License
+    This application is covered under the ${answer.license} license.`;
+
+    fs.writeFile('assets/README.md', content, err => {
+      if (err) {
+        console.error('Error writing README:', err);
+      } else {
+        console.log('README.md file has been generated successfully!');
+      }
+    });
+  })
+  .catch(error => {
+    console.error('Error occurred:', error);
+  });
